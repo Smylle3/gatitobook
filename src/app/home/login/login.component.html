@@ -1,0 +1,39 @@
+<h4 class="text-center">LOGIN</h4>
+<form action="form mt-4" (ngSubmit)="login()" #loginForm="ngForm">
+  <div class="form-group">
+    <input
+      class="form-control"
+      placeholder="Nome do usuário..."
+      type="text"
+      [(ngModel)]="user"
+      name="user"
+      #inputUser="ngModel"
+      required
+    />
+    <app-message-alert
+      *ngIf="passUser.invalid && passUser.touched"
+      message="Usuário obrigatório"
+    ></app-message-alert>
+  </div>
+  <div class="form-group">
+    <input
+      class="form-control"
+      placeholder="Senha..."
+      type="password"
+      [(ngModel)]="pass"
+      name="pass"
+      #passUser="ngModel"
+      required
+    />
+    <app-message-alert
+      *ngIf="passUser.invalid && passUser.touched"
+      message="Senha obrigatório"
+    ></app-message-alert>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+    LOGIN
+  </button>
+  <a routerLink="create-account" class="btn btn-secondary" >
+    CADASTRAR
+  </a>
+</form>
