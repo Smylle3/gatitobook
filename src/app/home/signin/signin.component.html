@@ -1,18 +1,26 @@
 <h4 class="text-center">CADASTRAR</h4>
-<form action="form mt-4" (ngSubmit)="signin()" #loginForm="ngForm">
+<form
+  action="form mt-4"
+  (ngSubmit)="signin()"
+  #loginForm="ngForm"
+  [formGroup]="newUserForm"
+>
   <div class="form-group">
     <input
       class="form-control"
       placeholder="Email..."
       type="email"
-      [(ngModel)]="email"
+      formControlName="email"
       name="email"
-      #emailUser="ngModel"
       required
     />
     <app-message-alert
-      *ngIf="emailUser.invalid && emailUser.touched"
+      *ngIf="newUserForm.get('email')?.errors?.['required'] && newUserForm.get('email')?.touched"
       message="Email obrigatório"
+    ></app-message-alert>
+    <app-message-alert
+      *ngIf="newUserForm.get('email')?.errors?.['email'] && newUserForm.get('email')?.touched"
+      message="Email inválido"
     ></app-message-alert>
   </div>
   <div class="form-group">
@@ -20,14 +28,17 @@
       class="form-control"
       placeholder="Nome completo..."
       type="email"
-      [(ngModel)]="name"
+      formControlName="fullName"
       name="name"
-      #nameUser="ngModel"
       required
     />
     <app-message-alert
-      *ngIf="nameUser.invalid && nameUser.touched"
+      *ngIf="newUserForm.get('fullName')?.errors?.['required'] && newUserForm.get('fullName')?.touched"
       message="Nome obrigatório"
+    ></app-message-alert>
+    <app-message-alert
+      *ngIf="newUserForm.get('fullName')?.errors?.['minLength'] && newUserForm.get('fullName')?.touched"
+      message="Nome deve ter mais caracteres"
     ></app-message-alert>
   </div>
   <div class="form-group">
@@ -35,14 +46,21 @@
       class="form-control"
       placeholder="Nome do usuário..."
       type="text"
-      [(ngModel)]="user"
+      formControlName="userName"
       name="user"
-      #inputUser="ngModel"
       required
     />
     <app-message-alert
-      *ngIf="inputUser.invalid && inputUser.touched"
+      *ngIf="newUserForm.get('userName')?.errors?.['required'] && newUserForm.get('userName')?.touched"
       message="Usuário obrigatório"
+    ></app-message-alert>
+    <app-message-alert
+      *ngIf="newUserForm.get('userName')?.errors?.['minLength'] && newUserForm.get('userName')?.touched"
+      message="Usuário deve ter mais caracteres"
+    ></app-message-alert>
+    <app-message-alert
+      *ngIf="newUserForm.get('userName')?.errors?.['lowCase'] && newUserForm.get('userName')?.touched"
+      message="Usuário deve ter letra minuscula"
     ></app-message-alert>
   </div>
   <div class="form-group">
@@ -50,18 +68,21 @@
       class="form-control"
       placeholder="Senha..."
       type="password"
-      [(ngModel)]="pass"
+      formControlName="password"
       name="pass"
-      #passUser="ngModel"
       required
     />
     <app-message-alert
-      *ngIf="passUser.invalid && passUser.touched"
-      message="Senha obrigatório"
+      *ngIf="newUserForm.get('password')?.errors?.['required'] && newUserForm.get('password')?.touched"
+      message="Senha obrigatória"
+    ></app-message-alert>
+    <app-message-alert
+      *ngIf="newUserForm.get('password')?.errors?.['minLength'] && newUserForm.get('password')?.touched"
+      message="A senha deve ter no mínimo 6 caracteres"
     ></app-message-alert>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
     CADASTRAR
   </button>
-  <a routerLink="" class="btn btn-secondary" >LOGIN</a>
+  <a routerLink="" class="btn btn-secondary">LOGIN</a>
 </form>

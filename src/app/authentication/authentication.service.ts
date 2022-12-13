@@ -1,3 +1,4 @@
+import { SigninInterface } from '../home/signin/signinInterface';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,17 +17,13 @@ export class AuthenticationService {
     });
   }
 
-  signin(
-    user: string,
-    email: string,
-    name: string,
-    pass: string
-  ): Observable<any> {
+  signin(SigninInterface: SigninInterface): Observable<any> {
     return this.httpClient.post(`${this.defaultRouter}user/signup`, {
-      userName: user,
-      fullName: name,
-      password: pass,
-      email: email,
+      SigninInterface,
     });
+  }
+
+  userVerify(): Observable<any> {
+    return this.httpClient.get(`${this.defaultRouter}user/exists${userName}`)
   }
 }
